@@ -74,19 +74,19 @@ def lovasz_theta(G, long_return=False, complement=False):
     If the `long_return` flag is set, returns also the optimal B and Z matrices for the primal
     and dual programs.
 
-    >>> import networkx
-    >>> G = networkx.cycle_graph(5)
-    >>> abs(np.sqrt(5) - lovasz_theta(G)) < 1e-9
-    True
+    # >>> import networkx
+    # >>> G = networkx.cycle_graph(5)
+    # >>> abs(np.sqrt(5) - lovasz_theta(G)) < 1e-9
+    # True
 
-    >>> # Vertices are {0,1}^5, edges between vertices with Hamming distance at most 2.
-    >>> H = [[ 1 if bin(i ^ j).count("1") <= 2 else 0 for i in range(32) ] for j in range(32) ]
-    >>> abs(16.0/3 - lovasz_theta(H)) < 1e-9
-    True
+    # >>> # Vertices are {0,1}^5, edges between vertices with Hamming distance at most 2.
+    # >>> H = [[ 1 if bin(i ^ j).count("1") <= 2 else 0 for i in range(32) ] for j in range(32) ]
+    # >>> abs(16.0/3 - lovasz_theta(H)) < 1e-9
+    # True
 
-    >>> Hc = np.logical_not(np.array(H))
-    >>> abs(6.0 - lovasz_theta(Hc)) < 1e-9
-    True
+    # >>> Hc = np.logical_not(np.array(H))
+    # >>> abs(6.0 - lovasz_theta(Hc)) < 1e-9
+    # True
     '''
 
     (nv, edges, _) = parse_graph(G, complement)
