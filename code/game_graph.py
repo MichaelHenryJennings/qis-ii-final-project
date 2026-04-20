@@ -24,16 +24,17 @@ class GameGraph:
         for v in self.vertices:
             row = []
             for w in self.vertices:
-                row.append(1 if not self.is_edge(v, w) else 0)
+                row.append(1 if self.is_edge(v, w) else 0)
             self.edges.append(row)
 
     def lovasz_upper_bound(self, p):
         weights = [p / self.n if v[0] == v[1] else (1 - p) / (self.n * self.n - self.n) for v in self.vertices]
-        return weighted_lovasz_number(self.edges, weights)#/(self.n*self.n)
+        return weighted_lovasz_number(self.edges, weights)
 
+p = 0.5
 for n in itertools.count(3):
     for k in range(2, 3):
         G = GameGraph(n, k)
         print(f"n={n}, k={k}")
-        theta = G.lovasz_upper_bound(1/n)
+        theta = G.lovasz_upper_bound(p)
         print(f"bound={theta}")
