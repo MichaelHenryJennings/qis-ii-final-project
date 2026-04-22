@@ -1,5 +1,6 @@
 from weighted_lovasz import weighted_lovasz_number
 import itertools
+import optimize
 # import cvxopt.solvers
 
 
@@ -31,10 +32,14 @@ class GameGraph:
         weights = [p / self.n if v[0] == v[1] else (1 - p) / (self.n * self.n - self.n) for v in self.vertices]
         return weighted_lovasz_number(self.edges, weights)
 
+n = 5
+m = 4
 p = 0.5
-for n in itertools.count(3):
-    for k in range(2, 3):
-        G = GameGraph(n, k)
-        print(f"n={n}, k={k}")
-        theta = G.lovasz_upper_bound(p)
-        print(f"bound={theta}")
+
+# for n in itertools.count(3):
+#     for m in range(2, n):
+print(f"n={n}, m={m}")
+G = GameGraph(n, m)
+optimize.find_optimal_bases(n, m, p)
+theta = G.lovasz_upper_bound(p)
+print(f"bound={theta}")
